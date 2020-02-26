@@ -33,3 +33,23 @@ void Vector::display(void) {
     }
     std::cout << "]" << std::endl;
 }
+
+Vector Vector::add(Vector other) {
+    int max_length = this->length > other.length ? this->length : other.length;
+    int min_length = this->length < other.length ? this->length : other.length;
+    Vector sum(max_length);
+    int i = 0;
+    for (; i < min_length; i++) {
+        sum.values[i] = this->values[i] + other.values[i];
+    }
+    if (max_length == this->length) {
+        for (; i < max_length; i++) {
+            sum.values[i] = this->values[i];
+        }
+    } else {
+        for (; i < max_length; i++) {
+            sum.values[i] = other.values[i];
+        }
+    }
+    return sum;
+}

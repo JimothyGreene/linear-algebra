@@ -6,4 +6,6 @@ class Vector {
         Vector(int length);
         Vector(int vals[], int length);
         void display(void);
+        Vector add(Vector other);
+        void concatenate(Vector tail);
 };
