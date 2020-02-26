@@ -35,21 +35,34 @@ void Vector::display(void) {
 }
 
 Vector Vector::add(Vector other) {
-    int max_length = this->length > other.length ? this->length : other.length;
-    int min_length = this->length < other.length ? this->length : other.length;
-    Vector sum(max_length);
+    int maxLength = this->length > other.length ? this->length : other.length;
+    int minLength = this->length < other.length ? this->length : other.length;
+    Vector sum(maxLength);
     int i = 0;
-    for (; i < min_length; i++) {
+    for (; i < minLength; i++) {
         sum.values[i] = this->values[i] + other.values[i];
     }
-    if (max_length == this->length) {
-        for (; i < max_length; i++) {
+    if (maxLength == this->length) {
+        for (; i < maxLength; i++) {
             sum.values[i] = this->values[i];
         }
     } else {
-        for (; i < max_length; i++) {
+        for (; i < maxLength; i++) {
             sum.values[i] = other.values[i];
         }
     }
     return sum;
+}
+
+void Vector::concatenate(Vector tail) {
+    int newLength = this->length + tail.length;
+    int* newArray = new int[newLength];
+    for (int i = 0; i < this->length; i++) {
+        newArray[i] = this->values[i];
+    }
+    for (int i = 0; i < tail.length; i++) {
+        newArray[i+this->length] = tail.values[i];
+    }
+    this->values = newArray;
+    this->length = newLength;
 }

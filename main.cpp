@@ -5,9 +5,11 @@ int main(void) {
     int len = 5;
     Vector vector1(vals, len);
     vector1.display();
-    Vector vector2(100);
+    Vector vector2(10);
     vector2.display();
     Vector sumVector = vector1.add(vector2);
     sumVector.display();
+    vector1.concatenate(vector2);
+    vector1.display();
     return 0;
 }
