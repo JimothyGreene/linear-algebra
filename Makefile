@@ -1,11 +1,21 @@
-linear-algebra: main.o vector.o
-	g++ main.o vector.o -o linear-algebra
+# Variables
+CXX=g++
+CXXFLAGS=-Wall -g
+OBJDIR=obj
 
-main.o vector.o: main.cpp vector.cpp
-	g++ -c -g main.cpp vector.cpp 
+vpath %.h src
+vpath %.cpp src
+
+objects = $(addprefix $(OBJDIR)/, vector.o main.o)
+
+linear-algebra: $(objects)
+	$(CXX) $(CXXFLAGS) $(objects) -o $@
+
+$(OBJDIR)/%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 test: linear-algebra
 	./linear-algebra
 
 clean:
-	rm *.o linear-algebra
+	rm $(objects) linear-algebra

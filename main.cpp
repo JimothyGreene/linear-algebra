@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "src/vector.h"
 
 int main(void) {
     float vals[] = {1,2.5,3,4,5};
