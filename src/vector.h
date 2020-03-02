@@ -22,7 +22,7 @@ class Vector {
     private:
         float* values_; // Array of values for the vector
         int length_;    // Length of the vector
-        bool col_;  // true represents column vector; false represents row vector
+        bool column_;  // true represents column vector; false represents row vector
     public:
         /**
          * Constructor for a Vector object
@@ -44,7 +44,7 @@ class Vector {
 
         /**
          * Displays the Vector object
-         * to the consol
+         * to the console
          */ 
         void display(void);
 
@@ -71,6 +71,8 @@ class Vector {
          * @param tail Vector object to be concatenated
          */
         void concatenate(Vector tail);
+
+        float multiply(Vector multiplier);
 };
 
 #endif

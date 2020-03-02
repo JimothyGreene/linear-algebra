@@ -7,7 +7,7 @@
  * 
  * Initializes length_ to len
  * 
- * Initializes col_ to true (column)
+ * Initializes column_ to true (column)
  */
 Vector::Vector(int len) {
     this->values_ = new float[len];
@@ -15,7 +15,7 @@ Vector::Vector(int len) {
         this->values_[i] = 0;
     }
     this->length_ = len;
-    this->col_ = true;
+    this->column_ = true;
 }
 
 /**
@@ -25,7 +25,7 @@ Vector::Vector(int len) {
  * 
  * Initializes length_ to len
  * 
- * Initializes col_ to col
+ * Initializes column_ to col
  */ 
 Vector::Vector(float vals[], int len, bool col) {
     this->values_ = new float[len];
@@ -33,7 +33,7 @@ Vector::Vector(float vals[], int len, bool col) {
         this->values_[i] = vals[i];
     }
     this->length_ = len;
-    this->col_ = col;
+    this->column_ = col;
 }
 
 /**
@@ -42,8 +42,8 @@ Vector::Vector(float vals[], int len, bool col) {
  * 
  * Values are enclosed by [ ]
  */
-void Vector::display(void) {    // TODO: Different based on col_
-    if (this->col_) {
+void Vector::display(void) {    // TODO: Different based on column_
+    if (this->column_) {
         std::cout << "[ " << this->values_[0] << std::endl;
         for (int i = 1; i < this->length_-1; i++) {
             std::cout << "  " << this->values_[i] << " " << std::endl;
@@ -69,7 +69,7 @@ void Vector::display(void) {    // TODO: Different based on col_
  * and the remaining values are appended
  */
 Vector Vector::addVector(Vector other) {
-    if(this->col_ != other.col_) {return other;};
+    if(this->column_ != other.column_) {return other;};
     int maxLength = this->length_ > other.length_ ? this->length_ : other.length_;
     int minLength = this->length_ < other.length_ ? this->length_ : other.length_;
     Vector sum(maxLength);
@@ -123,4 +123,13 @@ void Vector::concatenate(Vector tail) {
     }
     this->values_ = newArray;
     this->length_ = newLength;
+}
+
+float Vector::multiply(Vector multiplier) {
+    if(this->column_ == multiplier.column_) {return 69.42;}
+    float product = 0;
+    for (int i = 0; i < this->length_ && i < multiplier.length_; i++) {
+        product += this->values_[i] * multiplier.values_[i];
+    }
+    return product;
 }
