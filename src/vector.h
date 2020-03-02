@@ -20,8 +20,9 @@
  */
 class Vector {
     private:
-        int length_;    // Length of the vector
         float* values_; // Array of values for the vector
+        int length_;    // Length of the vector
+        bool col_;  // true represents column vector; false represents row vector
     public:
         /**
          * Constructor for a Vector object
@@ -37,8 +38,9 @@ class Vector {
          * 
          * @param vals Initial values for the vector
          * @param length Length of the vector
+         * @param col Boolean representing if column or row vector
          */ 
-        Vector(float vals[], int length);
+        Vector(float vals[], int length, bool col);
 
         /**
          * Displays the Vector object
@@ -50,7 +52,8 @@ class Vector {
          * Adds two Vector objects
          * 
          * @param other Vector object to be added
-         * @return the sum Vector object
+         * @return the sum Vector object if addition is valid
+         * otherwise returns other
          */ 
         Vector addVector(Vector other);
 

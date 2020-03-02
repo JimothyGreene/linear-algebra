@@ -1,17 +1,18 @@
 #include "src/vector.h"
 
+#include <iostream>
+
+void vectorDisplayTest(void) {
+    std::cout << "Row Vector: " << std::endl;
+    float vals[10] = {12,2,3,45,5,6,7,8,9,65};
+    Vector rowV(vals, 10, false);
+    rowV.display();
+    std::cout << "Column Vector: " << std::endl;
+    Vector colV(vals, 10, true);
+    colV.display(); 
+}
+
 int main(void) {
-    float vals[] = {1,2.5,3,4,5};
-    int len = 5;
-    Vector vector1(vals, len);
-    vector1.display();
-    Vector vector2(10);
-    vector2.display();
-    Vector sumVector = vector1.addVector(vector2);
-    sumVector.display();
-    vector1.concatenate(vector2);
-    vector1.display();
-    vector2.addScalar(1.3);
-    vector2.display();
+    vectorDisplayTest();
     return 0;
 }

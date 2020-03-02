@@ -6,6 +6,8 @@
  * Constructs a Vector object with initial values of 0
  * 
  * Initializes length_ to len
+ * 
+ * Initializes col_ to true (column)
  */
 Vector::Vector(int len) {
     this->values_ = new float[len];
@@ -13,6 +15,7 @@ Vector::Vector(int len) {
         this->values_[i] = 0;
     }
     this->length_ = len;
+    this->col_ = true;
 }
 
 /**
@@ -21,13 +24,16 @@ Vector::Vector(int len) {
  * Copies parameter vals[] to a new array
  * 
  * Initializes length_ to len
+ * 
+ * Initializes col_ to col
  */ 
-Vector::Vector(float vals[], int len) {
+Vector::Vector(float vals[], int len, bool col) {
     this->values_ = new float[len];
     for (int i = 0; i < len; i++) {
         this->values_[i] = vals[i];
     }
     this->length_ = len;
+    this->col_ = col;
 }
 
 /**
@@ -36,12 +42,20 @@ Vector::Vector(float vals[], int len) {
  * 
  * Values are enclosed by [ ]
  */
-void Vector::display(void) {
-    std::cout << "[ ";
-    for (int i = 0; i < this->length_; i++) {
-        std::cout << this->values_[i] << " ";
+void Vector::display(void) {    // TODO: Different based on col_
+    if (this->col_) {
+        std::cout << "[ " << this->values_[0] << std::endl;
+        for (int i = 1; i < this->length_-1; i++) {
+            std::cout << "  " << this->values_[i] << " " << std::endl;
+        }
+        std::cout << "  " << this->values_[this->length_-1] << " ]" << std::endl;
+    } else {
+        std::cout << "[ ";
+        for (int i = 0; i < this->length_; i++) {
+            std::cout << this->values_[i] << " ";
+        }
+        std::cout << "]" << std::endl;
     }
-    std::cout << "]" << std::endl;
 }
 
 /**
@@ -55,6 +69,7 @@ void Vector::display(void) {
  * and the remaining values are appended
  */
 Vector Vector::addVector(Vector other) {
+    if(this->col_ != other.col_) {return other;};
     int maxLength = this->length_ > other.length_ ? this->length_ : other.length_;
     int minLength = this->length_ < other.length_ ? this->length_ : other.length_;
     Vector sum(maxLength);
@@ -97,6 +112,7 @@ void Vector::addScalar(float scalar) {
  * array as its own
  */
 void Vector::concatenate(Vector tail) {
+    
     int newLength = this->length_ + tail.length_;
     float* newArray = new float[newLength];
     for (int i = 0; i < this->length_; i++) {
