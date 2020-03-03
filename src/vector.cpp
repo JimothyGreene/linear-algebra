@@ -26,6 +26,10 @@ int Vector::getLength(void) {
     return this->length_;
 }
 
+std::vector<float> Vector::getValues(void) {
+    return this->values_;
+}
+
 /**
  * Displays the vector one value after another
  * separated by spaces

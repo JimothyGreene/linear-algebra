@@ -42,6 +42,8 @@ class Vector {
 
         int getLength();
 
+        std::vector<float> getValues(void);
+
         /**
          * Displays the Vector object
          * to the console

@@ -20,7 +20,7 @@ class Matrix {
         int columns_;
         int rows_;
     public:
-        Matrix(std::vector<Vector> vals, int cols);
+        Matrix(std::vector<Vector> vals);
         void display(void);
 };
 

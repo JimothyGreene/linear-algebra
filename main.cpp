@@ -7,7 +7,7 @@
 Vector randomVector(int len) {
     std::vector<float> vals;
     for (int i = 0; i < len; i++) {
-        vals[i] = rand() % 10;
+        vals.push_back(rand() % 10);
     }
     Vector randVector(vals, true);
     return randVector;
@@ -74,16 +74,19 @@ void matrixDisplayTest(void) {
         Vector randVect = randomVector(n);
         columns.push_back(randVect);
     }
-    Matrix matrix(columns, n);
+    std::vector<float> shortCol = {12,2,3};
+    Vector shortVect(shortCol, true);
+    columns.push_back(shortVect);
+    Matrix matrix(columns);
     matrix.display();
 }
 
 int main(void) {
     // vectorDisplayTest();
     // vectorMultiplyVectorTest();
-    vectorMultiplyScalarTest();
+    // vectorMultiplyScalarTest();
     // vectorAddVectorTest();
     // vectorAddScalarTest();
-    // matrixDisplayTest();
+    matrixDisplayTest();
     return 0;
 }
