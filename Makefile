@@ -6,7 +6,7 @@ OBJDIR=obj
 vpath %.h src
 vpath %.cpp src
 
-objects = $(addprefix $(OBJDIR)/, vector.o main.o)
+objects = $(addprefix $(OBJDIR)/, matrix.o vector.o main.o)
 
 linear-algebra: $(objects)
 	$(CXX) $(CXXFLAGS) $(objects) -o $@

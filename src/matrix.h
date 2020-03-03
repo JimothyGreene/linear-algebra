@@ -10,13 +10,18 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "vector.h"
+
+#include <vector>
+
 class Matrix {
     private: 
-        Vector* columns_;
+        std::vector<Vector> values_;
+        int columns_;
         int rows_;
     public:
-        Matrix(Vector* cols_);
-        display(void);
+        Matrix(std::vector<Vector> vals, int cols);
+        void display(void);
 };
 
 #endif
