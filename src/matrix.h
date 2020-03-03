@@ -19,12 +19,14 @@ class Matrix {
         std::vector<Vector> values_;
         int columns_;
         int rows_;
+        bool colMajor_;
     public:
         Matrix(void);
         Matrix(std::vector<Vector> vals);
         void display(void);
         void toRowMajor(void);
         Matrix multiplyMatrix(Matrix multiplier);
+        void rowReduceDisplay(void);
 };
 
 #endif

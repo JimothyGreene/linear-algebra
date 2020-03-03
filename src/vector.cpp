@@ -79,6 +79,7 @@ Vector Vector::addVector(Vector other) {
     int minLength = this->length_ < other.length_ ? this->length_ : other.length_;
     Vector sum;
     sum.length_ = maxLength;
+    sum.column_ = this->column_;
     int i = 0;
     for (; i < minLength; i++) {
         sum.values_.push_back(this->values_[i] + other.values_[i]);
@@ -141,6 +142,8 @@ float Vector::multiplyVector(Vector multiplier) {       // TODO: Check if order 
 
 void Vector::multiplyScalar(float scalar) {
     for (int i = 0; i < this->length_; i++) {
-        this->values_[i] *= scalar;
+        if (this->values_[i] != 0) {
+            this->values_[i] *= scalar;
+        }
     }
 }

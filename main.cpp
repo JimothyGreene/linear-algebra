@@ -68,9 +68,9 @@ void vectorMultiplyScalarTest(void) {
 }
 
 void matrixDisplayTest(void) {
-    int n = 2;
+    int n = 3;
     std::vector<Vector> columns;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n-1; i++) {
         Vector randVect = randomVector(n);
         columns.push_back(randVect);
     }
@@ -79,9 +79,9 @@ void matrixDisplayTest(void) {
 }
 
 void matrixMultiplyMatrixTest(void) {
-    int n = 2;
+    int n = 5;
     std::vector<Vector> columns1;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n-1; i++) {
         Vector randVect = randomVector(n);
         columns1.push_back(randVect);
     }
@@ -89,9 +89,10 @@ void matrixMultiplyMatrixTest(void) {
     std::cout << "Matrix 1:" << std::endl;
     matrix1.display();
 
+    int m = 4;
     std::vector<Vector> columns2;
-    for (int i = 0; i < n; i++) {
-        Vector randVect = randomVector(n);
+    for (int i = 0; i < m+1; i++) {
+        Vector randVect = randomVector(m);
         columns2.push_back(randVect);
     }
     Matrix matrix2(columns2);
@@ -103,6 +104,19 @@ void matrixMultiplyMatrixTest(void) {
     product.display();
 }
 
+void matrixRowReduceDisplayTest(void) {
+    int n = 3;
+    std::vector<Vector> columns1;
+    for (int i = 0; i < n; i++) {
+        Vector randVect = randomVector(n);
+        columns1.push_back(randVect);
+    }
+    Matrix matrix(columns1);
+    std::cout << "Original Matrix:" << std::endl;
+    matrix.display();
+    matrix.rowReduceDisplay();
+}
+
 int main(void) {
     // vectorDisplayTest();
     // vectorMultiplyVectorTest();
@@ -110,6 +124,7 @@ int main(void) {
     // vectorAddVectorTest();
     // vectorAddScalarTest();
     // matrixDisplayTest();
-    matrixMultiplyMatrixTest();
+    // matrixMultiplyMatrixTest();
+    matrixRowReduceDisplayTest();
     return 0;
 }
