@@ -30,6 +30,17 @@ std::vector<float> Vector::getValues(void) {
     return this->values_;
 }
 
+Vector Vector::toggleColumnStatus(void) {
+    std::vector<float> vals = this->values_;
+    if(this->column_) {
+        Vector rowVect(vals, false);
+        return rowVect;
+    } else {
+        Vector colVect(vals, true);
+        return colVect;
+    }
+}
+
 /**
  * Displays the vector one value after another
  * separated by spaces
@@ -84,7 +95,6 @@ Vector Vector::addVector(Vector other) {
     return sum;
 }
 
-
 /** 
  * Adds a scalar value to a Vector object
  */
@@ -120,7 +130,7 @@ void Vector::concatenate(Vector tail) {
     this->length_ = newLength;
 }
 
-float Vector::multiplyVector(Vector multiplier) {
+float Vector::multiplyVector(Vector multiplier) {       // TODO: Check if order or row x column changes anything
     if(this->column_ == multiplier.column_) {return 69.42;}
     float product = 0;
     for (int i = 0; i < this->length_ && i < multiplier.length_; i++) {

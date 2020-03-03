@@ -35,7 +35,6 @@ class Vector {
          * with specified initial values
          * 
          * @param vals Initial values for the vector
-         * @param length Length of the vector
          * @param col Boolean representing if column or row vector
          */ 
         Vector(std::vector<float>, bool col);
@@ -43,6 +42,8 @@ class Vector {
         int getLength();
 
         std::vector<float> getValues(void);
+
+        Vector toggleColumnStatus(void);
 
         /**
          * Displays the Vector object

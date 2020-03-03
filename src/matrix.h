@@ -20,8 +20,11 @@ class Matrix {
         int columns_;
         int rows_;
     public:
+        Matrix(void);
         Matrix(std::vector<Vector> vals);
         void display(void);
+        void toRowMajor(void);
+        Matrix multiplyMatrix(Matrix multiplier);
 };
 
 #endif
