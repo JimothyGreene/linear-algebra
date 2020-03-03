@@ -105,7 +105,7 @@ void matrixMultiplyMatrixTest(void) {
 }
 
 void matrixRowReduceDisplayTest(void) {
-    int n = 3;
+    int n = 4;
     std::vector<Vector> columns1;
     for (int i = 0; i < n; i++) {
         Vector randVect = randomVector(n);
@@ -114,6 +114,7 @@ void matrixRowReduceDisplayTest(void) {
     Matrix matrix(columns1);
     std::cout << "Original Matrix:" << std::endl;
     matrix.display();
+    std::cout << std::endl;
     matrix.rowReduceDisplay();
 }
 

@@ -11,7 +11,6 @@
 #define VECTOR_H
 
 #include <iostream>
-
 #include <vector>
 
 /**
@@ -27,6 +26,8 @@ class Vector {
         std::vector<float> values_; // Array of values for the vector
         int length_;    // Length of the vector
         bool column_;  // true represents column vector; false represents row vector
+
+        float truncate(float value);
     public:
         Vector(void);
 

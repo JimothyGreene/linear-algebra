@@ -41,6 +41,11 @@ Vector Vector::toggleColumnStatus(void) {
     }
 }
 
+float Vector::truncate(float value) {
+    if (std::abs(value) < 0.001) value = 0;
+    return value;
+}
+
 /**
  * Displays the vector one value after another
  * separated by spaces
@@ -82,7 +87,8 @@ Vector Vector::addVector(Vector other) {
     sum.column_ = this->column_;
     int i = 0;
     for (; i < minLength; i++) {
-        sum.values_.push_back(this->values_[i] + other.values_[i]);
+        float value = this->truncate(this->values_[i] + other.values_[i]);
+        sum.values_.push_back(value);
     }
     if (maxLength == this->length_) {
         for (; i < maxLength; i++) {
@@ -101,7 +107,7 @@ Vector Vector::addVector(Vector other) {
  */
 void Vector::addScalar(float scalar) {
     for (int i = 0; i < this->length_; i++) {
-        this->values_[i] += scalar;
+        this->values_[i] += this->truncate(scalar);
     }
 }
 
@@ -135,7 +141,7 @@ float Vector::multiplyVector(Vector multiplier) {       // TODO: Check if order 
     if(this->column_ == multiplier.column_) {return 69.42;}
     float product = 0;
     for (int i = 0; i < this->length_ && i < multiplier.length_; i++) {
-        product += this->values_[i] * multiplier.values_[i];
+        product += this->truncate(this->values_[i] * multiplier.values_[i]);
     }
     return product;
 }
@@ -143,7 +149,7 @@ float Vector::multiplyVector(Vector multiplier) {       // TODO: Check if order 
 void Vector::multiplyScalar(float scalar) {
     for (int i = 0; i < this->length_; i++) {
         if (this->values_[i] != 0) {
-            this->values_[i] *= scalar;
+            this->values_[i] *= this->truncate(scalar);
         }
     }
 }
