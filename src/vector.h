@@ -10,6 +10,10 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <iostream>
+
+#include <vector>
+
 /**
  * Vector
  * 
@@ -20,17 +24,11 @@
  */
 class Vector {
     private:
-        float* values_; // Array of values for the vector
+        std::vector<float> values_; // Array of values for the vector
         int length_;    // Length of the vector
         bool column_;  // true represents column vector; false represents row vector
     public:
-        /**
-         * Constructor for a Vector object
-         * without initial values
-         * 
-         * @param length Length of the vector
-         */ 
-        Vector(int length);
+        Vector(void);
 
         /**
          * Constructor for a Vector object
@@ -40,7 +38,9 @@ class Vector {
          * @param length Length of the vector
          * @param col Boolean representing if column or row vector
          */ 
-        Vector(float vals[], int length, bool col);
+        Vector(std::vector<float>, bool col);
+
+        int getLength();
 
         /**
          * Displays the Vector object
@@ -72,7 +72,9 @@ class Vector {
          */
         void concatenate(Vector tail);
 
-        float multiply(Vector multiplier);
+        float multiplyVector(Vector multiplier);
+
+        void multiplyScalar(float scalar);
 };
 
 #endif

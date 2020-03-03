@@ -1,21 +1,10 @@
 #include "vector.h"
 
-#include <iostream>
-
-/** 
- * Constructs a Vector object with initial values of 0
- * 
- * Initializes length_ to len
- * 
- * Initializes column_ to true (column)
- */
-Vector::Vector(int len) {
-    this->values_ = new float[len];
-    for (int i = 0; i < len; i++) {
-        this->values_[i] = 0;
-    }
-    this->length_ = len;
-    this->column_ = true;
+Vector::Vector(void) {
+    std::vector<float> vals;
+    this->values_ = vals;
+    this->length_ = 1;
+    this->column_ = true; 
 }
 
 /**
@@ -27,13 +16,14 @@ Vector::Vector(int len) {
  * 
  * Initializes column_ to col
  */ 
-Vector::Vector(float vals[], int len, bool col) {
-    this->values_ = new float[len];
-    for (int i = 0; i < len; i++) {
-        this->values_[i] = vals[i];
-    }
-    this->length_ = len;
+Vector::Vector(std::vector<float> vals, bool col) {
+    this->values_ = vals;
+    this->length_ = vals.size();
     this->column_ = col;
+}
+
+int Vector::getLength(void) {
+    return this->length_;
 }
 
 /**
@@ -42,7 +32,7 @@ Vector::Vector(float vals[], int len, bool col) {
  * 
  * Values are enclosed by [ ]
  */
-void Vector::display(void) {    // TODO: Different based on column_
+void Vector::display(void) {
     if (this->column_) {
         std::cout << "[ " << this->values_[0] << std::endl;
         for (int i = 1; i < this->length_-1; i++) {
@@ -72,18 +62,19 @@ Vector Vector::addVector(Vector other) {
     if(this->column_ != other.column_) {return other;};
     int maxLength = this->length_ > other.length_ ? this->length_ : other.length_;
     int minLength = this->length_ < other.length_ ? this->length_ : other.length_;
-    Vector sum(maxLength);
+    Vector sum;
+    sum.length_ = maxLength;
     int i = 0;
     for (; i < minLength; i++) {
-        sum.values_[i] = this->values_[i] + other.values_[i];
+        sum.values_.push_back(this->values_[i] + other.values_[i]);
     }
     if (maxLength == this->length_) {
         for (; i < maxLength; i++) {
-            sum.values_[i] = this->values_[i];
+            sum.values_.push_back(this->values_[i]);
         }
     } else {
         for (; i < maxLength; i++) {
-            sum.values_[i] = other.values_[i];
+            sum.values_.push_back(other.values_[i]);
         }
     }
     return sum;
@@ -114,7 +105,7 @@ void Vector::addScalar(float scalar) {
 void Vector::concatenate(Vector tail) {
     
     int newLength = this->length_ + tail.length_;
-    float* newArray = new float[newLength];
+    std::vector<float> newArray;
     for (int i = 0; i < this->length_; i++) {
         newArray[i] = this->values_[i];
     }
@@ -125,11 +116,17 @@ void Vector::concatenate(Vector tail) {
     this->length_ = newLength;
 }
 
-float Vector::multiply(Vector multiplier) {
+float Vector::multiplyVector(Vector multiplier) {
     if(this->column_ == multiplier.column_) {return 69.42;}
     float product = 0;
     for (int i = 0; i < this->length_ && i < multiplier.length_; i++) {
         product += this->values_[i] * multiplier.values_[i];
     }
     return product;
+}
+
+void Vector::multiplyScalar(float scalar) {
+    for (int i = 0; i < this->length_; i++) {
+        this->values_[i] *= scalar;
+    }
 }
