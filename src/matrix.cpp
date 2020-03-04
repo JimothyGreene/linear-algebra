@@ -110,3 +110,33 @@ void Matrix::rowReduce(bool display) {
         if (display) {std::cout << std::endl;}
     }
 }
+
+float Matrix::determinant(void) {
+    assert(this->rows_ == this->columns_);
+    if (this->rows_ == 2) {
+        return (this->values_[0].getValues()[0] * this->values_[1].getValues()[1]) - 
+                (this->values_[0].getValues()[1] * this->values_[1].getValues()[0]);
+    }
+    float determinant = 0;
+    for (int i = 0; i < this->columns_; i++) {
+        std::vector<Vector> subVectors;
+        for (int j = 0; j < this->columns_; j++) {
+            if (i != j) {
+                std::vector<float> subValues(this->values_[j].getValues());
+                subValues.erase(subValues.begin());
+                Vector subVector(subValues, true);
+                subVectors.push_back(subVector);
+            }
+        }
+        if (i % 2) {
+            determinant -= this->values_[i].getValues()[0] * Matrix(subVectors).determinant();
+        } else {
+            determinant += this->values_[i].getValues()[0] * Matrix(subVectors).determinant();
+        }
+    }
+    return determinant;
+}
+
+Matrix Matrix::invert(void) {
+    /* body */
+}

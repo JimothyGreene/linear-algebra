@@ -27,6 +27,8 @@ class Matrix {
         void toRowMajor(void);
         Matrix multiplyMatrix(Matrix multiplier);
         void rowReduce(bool display);
+        float determinant(void);
+        Matrix invert(void);
 };
 
 #endif

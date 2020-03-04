@@ -148,6 +148,19 @@ void homeworkRowReduction(void) {
     matrix.rowReduce(true);
 }
 
+void matrixDeterminantTest(void) {
+    int n = 4;
+    std::vector<Vector> columns;
+    for (int i = 0; i < n; i++) {
+        Vector randVect = randomVector(n);
+        columns.push_back(randVect);
+    }
+    Matrix matrix(columns);
+    std::cout << "Matrix:" << std::endl;
+    matrix.display();
+    std::cout << "Determinant = " << matrix.determinant() << std::endl;
+}
+
 int main(void) {
     // vectorDisplayTest();
     // vectorMultiplyVectorTest();
@@ -156,7 +169,8 @@ int main(void) {
     // vectorAddScalarTest();
     // matrixDisplayTest();
     // matrixMultiplyMatrixTest();
-    matrixRowReduceTest();
+    // matrixRowReduceTest();
     // homeworkRowReduction();
+    matrixDeterminantTest();
     return 0;
 }
