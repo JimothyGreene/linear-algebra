@@ -90,23 +90,23 @@ Matrix Matrix::multiplyMatrix(Matrix multiplier) {
     return productMatrix;
 }
 
-void Matrix::rowReduceDisplay(void) {
+void Matrix::rowReduce(bool display) {
     this->toRowMajor();
     for (int i = 0; i < this->rows_; i++) {
         float pivot = this->values_[i].getValues()[i];
         if (pivot != 1) {
             this->values_[i].multiplyScalar(1/pivot);
-            this->display();
-            for (int j = 0; j < this->rows_; j++) {
-                if (i != j) {
-                    float factor = -this->values_[j].getValues()[i];
-                    Vector scaledVector(this->values_[i].getValues(), false);
-                    scaledVector.multiplyScalar(factor);
-                    this->values_[j] = this->values_[j].addVector(scaledVector);
-                    this->display();
-                }
-            }
-            std::cout << std::endl;
+            if (display) {this->display();}
         }
+        for (int j = 0; j < this->rows_; j++) {
+            if (i != j) {
+                float factor = -this->values_[j].getValues()[i];
+                Vector scaledVector(this->values_[i].getValues(), false);
+                scaledVector.multiplyScalar(factor);
+                this->values_[j] = this->values_[j].addVector(scaledVector);
+                if (display) {this->display();}
+            }
+        }
+        if (display) {std::cout << std::endl;}
     }
 }

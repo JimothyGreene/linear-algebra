@@ -104,18 +104,48 @@ void matrixMultiplyMatrixTest(void) {
     product.display();
 }
 
-void matrixRowReduceDisplayTest(void) {
+void matrixRowReduceTest(void) {
     int n = 4;
-    std::vector<Vector> columns1;
-    for (int i = 0; i < n; i++) {
+    std::vector<Vector> columns;
+    for (int i = 0; i < n+1; i++) {
         Vector randVect = randomVector(n);
-        columns1.push_back(randVect);
+        columns.push_back(randVect);
     }
-    Matrix matrix(columns1);
+    Matrix matrix(columns);
     std::cout << "Original Matrix:" << std::endl;
     matrix.display();
     std::cout << std::endl;
-    matrix.rowReduceDisplay();
+    matrix.rowReduce(false);
+    std::cout << "Row Reduced Matris:" << std::endl;
+    matrix.display();
+}
+
+void homeworkRowReduction(void) {
+    std::vector<Vector> values;
+
+    std::vector<float> column1 = {2,3,3,3};
+    Vector column1Vect(column1, true);
+    std::vector<float> column2 = {4,-2,-3,0};
+    Vector column2Vect(column2, true);
+    std::vector<float> column3 = {-1,-1,-1,-1};
+    Vector column3Vect(column3, true);
+    std::vector<float> column4 = {-1,-2,-2,-1};
+    Vector column4Vect(column4, true);
+    std::vector<float> constants = {-1,2,-2,1};
+    Vector constantsVect(constants, true);
+    
+    values.push_back(column1Vect);
+    values.push_back(column2Vect);
+    values.push_back(column3Vect);
+    values.push_back(column4Vect);
+    values.push_back(constantsVect);
+
+    Matrix matrix(values);
+
+    std::cout << "Original Matrix:" << std::endl;
+    matrix.display();
+    std::cout << std::endl;
+    matrix.rowReduce(true);
 }
 
 int main(void) {
@@ -126,6 +156,7 @@ int main(void) {
     // vectorAddScalarTest();
     // matrixDisplayTest();
     // matrixMultiplyMatrixTest();
-    matrixRowReduceDisplayTest();
+    matrixRowReduceTest();
+    // homeworkRowReduction();
     return 0;
 }
