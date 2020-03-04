@@ -13,6 +13,15 @@ Vector randomVector(int len) {
     return randVector;
 }
 
+Matrix randomMatrix(int m, int n) {
+    std::vector<Vector> columns;
+    for (int i = 0; i < n; i++) {
+        Vector randVect = randomVector(m);
+        columns.push_back(randVect);
+    }
+    return Matrix(columns);
+}
+
 void vectorDisplayTest(void) {
     std::cout << "Row Vector: " << std::endl;
     std::vector<float> vals = {12,2,3,45,5,6,7,8,9,65};
@@ -68,34 +77,16 @@ void vectorMultiplyScalarTest(void) {
 }
 
 void matrixDisplayTest(void) {
-    int n = 3;
-    std::vector<Vector> columns;
-    for (int i = 0; i < n-1; i++) {
-        Vector randVect = randomVector(n);
-        columns.push_back(randVect);
-    }
-    Matrix matrix(columns);
+    Matrix matrix = randomMatrix(3, 2);
     matrix.display();
 }
 
 void matrixMultiplyMatrixTest(void) {
-    int n = 5;
-    std::vector<Vector> columns1;
-    for (int i = 0; i < n-1; i++) {
-        Vector randVect = randomVector(n);
-        columns1.push_back(randVect);
-    }
-    Matrix matrix1(columns1);
+    Matrix matrix1 = randomMatrix(5, 4);
     std::cout << "Matrix 1:" << std::endl;
     matrix1.display();
 
-    int m = 4;
-    std::vector<Vector> columns2;
-    for (int i = 0; i < m+1; i++) {
-        Vector randVect = randomVector(m);
-        columns2.push_back(randVect);
-    }
-    Matrix matrix2(columns2);
+    Matrix matrix2 = randomMatrix(4, 6);
     std::cout << "Matrix 2:" << std::endl;
     matrix2.display();
 
@@ -105,18 +96,12 @@ void matrixMultiplyMatrixTest(void) {
 }
 
 void matrixRowReduceTest(void) {
-    int n = 4;
-    std::vector<Vector> columns;
-    for (int i = 0; i < n+1; i++) {
-        Vector randVect = randomVector(n);
-        columns.push_back(randVect);
-    }
-    Matrix matrix(columns);
+    Matrix matrix = randomMatrix(4, 4);
     std::cout << "Original Matrix:" << std::endl;
     matrix.display();
     std::cout << std::endl;
     matrix.rowReduce(false);
-    std::cout << "Row Reduced Matris:" << std::endl;
+    std::cout << "Row Reduced Matrix:" << std::endl;
     matrix.display();
 }
 
@@ -124,21 +109,16 @@ void homeworkRowReduction(void) {
     std::vector<Vector> values;
 
     std::vector<float> column1 = {2,3,3,3};
-    Vector column1Vect(column1, true);
     std::vector<float> column2 = {4,-2,-3,0};
-    Vector column2Vect(column2, true);
     std::vector<float> column3 = {-1,-1,-1,-1};
-    Vector column3Vect(column3, true);
     std::vector<float> column4 = {-1,-2,-2,-1};
-    Vector column4Vect(column4, true);
     std::vector<float> constants = {-1,2,-2,1};
-    Vector constantsVect(constants, true);
     
-    values.push_back(column1Vect);
-    values.push_back(column2Vect);
-    values.push_back(column3Vect);
-    values.push_back(column4Vect);
-    values.push_back(constantsVect);
+    values.push_back(Vector(column1, true));
+    values.push_back(Vector(column2, true));
+    values.push_back(Vector(column3, true));
+    values.push_back(Vector(column4, true));
+    values.push_back(Vector(constants, true));
 
     Matrix matrix(values);
 
@@ -149,16 +129,50 @@ void homeworkRowReduction(void) {
 }
 
 void matrixDeterminantTest(void) {
-    int n = 4;
-    std::vector<Vector> columns;
-    for (int i = 0; i < n; i++) {
-        Vector randVect = randomVector(n);
-        columns.push_back(randVect);
-    }
-    Matrix matrix(columns);
+    Matrix matrix = randomMatrix(5, 5);
     std::cout << "Matrix:" << std::endl;
     matrix.display();
     std::cout << "Determinant = " << matrix.determinant() << std::endl;
+}
+
+void matrixInvertTest(void) {
+    Matrix matrix = randomMatrix(3, 3);
+    Matrix inverted = matrix.invert();
+    std::cout << "Original Matrix:" << std::endl;
+    matrix.display();
+    std::cout << "Inverted Matrix:" << std::endl;
+    inverted.display();
+}
+
+void homeworkMatrixInvertTest(void) {
+    std::vector<Vector> values;
+    std::vector<Vector> constantVector;
+
+    std::vector<float> column1 = {1,0,3,-2};
+    std::vector<float> column2 = {0,1,1,0};
+    std::vector<float> column3 = {1,-1,-1,0};
+    std::vector<float> column4 = {2,-2,2,-3};
+    std::vector<float> constants = {1,2,1,2};
+
+    values.push_back(Vector(column1, true));
+    values.push_back(Vector(column2, true));
+    values.push_back(Vector(column3, true));
+    values.push_back(Vector(column4, true));
+
+    constantVector.push_back(Vector(constants, true));
+    Matrix constantMatrix(constantVector);
+    Matrix matrix(values);
+
+    std::cout << "Matrix:" << std::endl;
+    matrix.display();
+    std::cout << "Constants:" << std::endl;
+    constantMatrix.display();
+    Matrix inverted = matrix.invert();
+    std::cout << "Inverted Matrix:" << std::endl;
+    inverted.display();
+    Matrix solution = inverted.multiplyMatrix(constantMatrix);
+    std::cout << "Solution:" << std::endl;
+    solution.display();
 }
 
 int main(void) {
@@ -171,6 +185,8 @@ int main(void) {
     // matrixMultiplyMatrixTest();
     // matrixRowReduceTest();
     // homeworkRowReduction();
-    matrixDeterminantTest();
+    // matrixDeterminantTest();
+    // matrixInvertTest();
+    homeworkMatrixInvertTest();
     return 0;
 }

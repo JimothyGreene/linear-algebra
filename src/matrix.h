@@ -20,11 +20,14 @@ class Matrix {
         int columns_;
         int rows_;
         bool colMajor_;
+
+        Matrix identity(int n);
     public:
         Matrix(void);
         Matrix(std::vector<Vector> vals);
         void display(void);
         void toRowMajor(void);
+        void toColMajor(void);
         Matrix multiplyMatrix(Matrix multiplier);
         void rowReduce(bool display);
         float determinant(void);
